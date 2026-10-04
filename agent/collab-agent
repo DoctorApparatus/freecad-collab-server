@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+# Start the AI participant.
+#   collab-agent [--env-file PATH]
+# Needs FreeCAD (freecadcmd). Set COLLAB_FREECADCMD to use a specific binary,
+# e.g. an AppImage: COLLAB_FREECADCMD="/opt/FreeCAD.AppImage freecadcmd"
+set -euo pipefail
+
+here="$(cd "$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")" && pwd)"
+export COLLAB_AGENT_HOME="$here"
+if [[ ${1:-} == --env-file ]]; then
+    [[ -n ${2:-} ]] || { echo "error: --env-file needs a path" >&2; exit 2; }
+    COLLAB_AGENT_ENV_FILE="$(readlink -f "$2")"
+    export COLLAB_AGENT_ENV_FILE
+fi
+export PYTHONUNBUFFERED=1
+
+if [[ -n ${COLLAB_FREECADCMD:-} ]]; then
+    # shellcheck disable=SC2086 # intentional word splitting for "AppImage freecadcmd"
+    exec $COLLAB_FREECADCMD "$here/run_agent.py"
+fi
+for cmd in freecadcmd FreeCADCmd freecad.cmd; do
+    if command -v "$cmd" >/dev/null; then
+        exec "$cmd" "$here/run_agent.py"
+    fi
+done
+if command -v flatpak >/dev/null && flatpak info org.freecad.FreeCAD >/dev/null 2>&1; then
+    extra=()
+    [[ -n ${COLLAB_AGENT_ENV_FILE:-} ]] && extra+=("--filesystem=$(dirname "$COLLAB_AGENT_ENV_FILE"):ro")
+    exec flatpak run "--filesystem=$here:ro" "${extra[@]}" --command=FreeCADCmd org.freecad.FreeCAD "$here/run_agent.py"
+fi
+echo "error: FreeCAD's console (freecadcmd) was not found. Install FreeCAD or set COLLAB_FREECADCMD." >&2
+exit 1

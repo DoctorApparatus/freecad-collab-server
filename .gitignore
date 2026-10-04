@@ -1,0 +1,6 @@
+/target
+/data
+.env
+agent/agent.env
+__pycache__/
+/dist

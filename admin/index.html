@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <title>Collab server admin</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect x='1' y='1' width='14' height='14' fill='none' stroke='%232F5DA8' stroke-width='1.5'/%3E%3Cpath d='M9 9h6v6H9z' fill='%232F5DA8'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/admin/app.css">
+  <script src="/admin/app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="sheet">
+    <div class="zones" aria-hidden="true"></div>
+    <div class="frame">
+      <header class="bar">
+        <span class="mark">FreeCAD collab server</span>
+        <nav id="nav" aria-label="Sections" hidden>
+          <a href="#overview">Overview</a>
+          <a href="#users">Users</a>
+          <a href="#documents">Documents</a>
+        </nav>
+        <button id="signout" class="link" type="button" hidden>Sign out</button>
+      </header>
+      <main id="main" tabindex="-1"></main>
+      <aside class="titleblock" id="titleblock" aria-label="Server details" hidden>
+        <div class="tb-title"><span>Title</span><strong>FreeCAD collaboration server</strong></div>
+        <div><span>Host</span><strong id="tb-host"></strong></div>
+        <div><span>Version</span><strong id="tb-version"></strong></div>
+        <div><span>Up for</span><strong id="tb-uptime"></strong></div>
+        <div><span>Sheet</span><strong id="tb-sheet"></strong></div>
+      </aside>
+    </div>
+  </div>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <dialog id="confirm" aria-labelledby="confirm-title"></dialog>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
+  <name>CollabSync</name>
+  <description>Real-time collaboration on FreeCAD documents via freecad-collab-server</description>
+  <version>0.1.0</version>
+  <maintainer email="maintainer@example.com">CollabSync maintainers</maintainer>
+  <license>MIT</license>
+  <freecadmin>0.21.0</freecadmin>
+  <content>
+    <workbench>
+      <classname>CollabWorkbench</classname>
+      <subdirectory>./</subdirectory>
+    </workbench>
+  </content>
+</package>
